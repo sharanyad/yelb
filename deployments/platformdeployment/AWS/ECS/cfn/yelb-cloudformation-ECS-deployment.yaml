@@ -13,6 +13,14 @@ Parameters:
     PublicSubnetTwo:
         Type: AWS::EC2::Subnet::Id
         Description: Second Public Subnet
+ 
+    PrivateSubnetOne:
+        Type: AWS::EC2::Subnet::Id
+        Description: First Private Subnet
+
+    PrivateSubnetTwo:
+        Type: AWS::EC2::Subnet::Id
+        Description: Second Private Subnet
 
     Cluster:
         Description: Please provide the ECS Cluster ID that this service should run on
@@ -65,7 +73,7 @@ Resources:
             NetworkConfiguration:
                 AwsvpcConfiguration:
                     AssignPublicIp: !Ref PublicIP
-                    Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo' ]
+                    Subnets: [ !Ref 'PrivateSubnetOne' , !Ref 'PrivateSubnetTwo' ]
                     SecurityGroups: [!Ref 'YelbDbSecurityGroup' ]
 
     TaskDefinitionYelbDb:
@@ -101,7 +109,7 @@ Resources:
             NetworkConfiguration:
                 AwsvpcConfiguration:
                     AssignPublicIp: !Ref PublicIP
-                    Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo'  ]
+                    Subnets: [ !Ref 'PrivateSubnetOne' , !Ref 'PrivateSubnetTwo'  ]
                     SecurityGroups: [!Ref 'YelbRedisServerSecurityGroup' ]
 
     TaskDefinitionRedisServer:
@@ -137,7 +145,7 @@ Resources:
             NetworkConfiguration:
                 AwsvpcConfiguration:
                     AssignPublicIp: !Ref PublicIP
-                    Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo'  ]
+                    Subnets: [ !Ref 'PrivateSubnetOne' , !Ref 'PrivateSubnetTwo'  ]
                     SecurityGroups: [!Ref 'YelbAppserverSecurityGroup' ]
 
     TaskDefinitionYelbAppserver:
@@ -181,7 +189,7 @@ Resources:
             NetworkConfiguration:
                 AwsvpcConfiguration:
                     AssignPublicIp: !Ref PublicIP
-                    Subnets: [ !Ref 'PublicSubnetOne' , !Ref 'PublicSubnetTwo'  ]
+                    Subnets: [ !Ref 'PrivateSubnetOne' , !Ref 'PrivateSubnetTwo'  ]
                     SecurityGroups: [!Ref 'YelbUiSecurityGroup' ]
 
     TaskDefinitionYelbUi:
